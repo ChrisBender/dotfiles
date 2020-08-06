@@ -26,35 +26,17 @@ CLBUSER='s78lmtj8916t'
 alias chrisliambender='ssh $CLBUSER@chrisliambender.com'
 alias scpclb='scp -r /Users/chris/Desktop/website/* $CLBUSER@chrisliambender.com:/home/$CLBUSER/public_html'
 
-# ssh process alias
-alias pssh='ps aux | grep ssh'
-
-# atlas alias and ssh pipe
-# alias atlas='ssh chris@atlas.ist.berkeley.edu'
-
-atlasport='ssh -N -f -L localhost:8888:localhost:8890 chris@atlas.ist.berkeley.edu'
-alias jupyteratlas='pid=`pssh | grep "$atlasport" | grep -v grep | head -n 1 | cut -d " " -f 2- | xargs | cut -d " " -f -1`; if [ $pid ]; then kill $pid; eval $atlasport; echo "Killed ssh pipe and restarted."; else eval $atlasport; echo "Created a ssh pipe to atlas."; fi; echo "localhost:8888 is now mapped to atlas:8890."'
-
-# pinwheel alias
-# alias pinwheel='ssh chris@pinwheel10.d2.comp.nus.edu.sg'
-
-# short aliases
+# Short aliases
 alias e='exit'
 alias d='cd ~/Desktop'
 
-# function to port-forward to atlas
-function port(){
-    default_1="8888"
-    default_2="8891"
-    ssh -N -f -L localhost:${1:-$default_1}:localhost:${2:-$default_2} chris@atlas.ist.berkeley.edu;
-}
-
-# always X-forward
+# Always X-forward
 alias ssh='ssh -X'
 
+# Use python3 always
 alias pip='pip3'
 alias python='python3'
 
-# alias for nvidia-smi on all sunblaze servers
+# nvidia-smi on all sunblaze servers
 alias nvidia-smi-all='tmux-cssh atlas pinwheel{1,2,3,4,5,7,8,9}'
 
