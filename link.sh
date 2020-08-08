@@ -4,7 +4,6 @@ fnames=(
     ".bash_prompt"
     ".tmux.conf"
     ".vimrc"
-    ".dne"
 )
 dotfiles=$(dirname $(realpath $0))
 for fname in "${fnames[@]}"; do

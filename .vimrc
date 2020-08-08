@@ -1,35 +1,12 @@
 "Vundle
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'zxqfl/tabnine-vim'
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-"VimWiki
-set nocompatible
-filetype plugin on
-syntax on
-call plug#begin('~/.vim/plugged')
-Plug 'vimwiki/vimwiki'
-call plug#end()
-let g:vimwiki_list = [{'path': '~/Desktop/notes', 'list_margin': 2}]
-au BufNewFile,BufFilePre,BufRead, *.wiki set nowrap linebreak textwidth=72
-function! VimWikiFormat()
-    if &ft == 'vimwiki'
-        let pos = getpos('.')
-        exec "normal gggqGgg"
-        :%s/=.\{-}= /&\r/ge
-        exec "normal gg"
-        :%s/\[\[.\{-}\]\] /&\r/ge
-        exec "normal gg"
-        call setpos('.', pos)
-    endif
-endfunction
-nnoremap <silent> <leader>f :silent call VimWikiFormat()<CR>
-nnoremap <silent> <leader>t :VimwikiTOC<CR>
+call vundle#end()
+filetype plugin indent on
 
 "Tabbing
 set tabstop=4
@@ -48,6 +25,7 @@ set number
 set cursorline
 set cursorcolumn
 set relativenumber
+set ruler
 
 "Misc
 nnoremap <leader>s :source ~/.vimrc<CR>
@@ -82,6 +60,29 @@ endfunction
 
 nnoremap <silent> <C-j> :call SwapDown()<CR>
 nnoremap <silent> <C-k> :call SwapUp()<CR>
+
+"VimWiki
+set nocompatible
+filetype plugin on
+syntax on
+call plug#begin('~/.vim/plugged')
+Plug 'vimwiki/vimwiki'
+call plug#end()
+let g:vimwiki_list = [{'path': '~/Desktop/notes', 'list_margin': 2}]
+au BufNewFile,BufFilePre,BufRead, *.wiki set nowrap linebreak textwidth=72
+function! VimWikiFormat()
+    if &ft == 'vimwiki'
+        let pos = getpos('.')
+        exec "normal gggqGgg"
+        :%s/=.\{-}= /&\r/ge
+        exec "normal gg"
+        :%s/\[\[.\{-}\]\] /&\r/ge
+        exec "normal gg"
+        call setpos('.', pos)
+    endif
+endfunction
+nnoremap <silent> <leader>f :silent call VimWikiFormat()<CR>
+nnoremap <silent> <leader>t :VimwikiTOC<CR>
 
 "Experimental
 "function! ToggleFever()
