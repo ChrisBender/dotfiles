@@ -27,13 +27,17 @@ set cursorcolumn
 set relativenumber
 set ruler
 
+"Yank/Paste to System Clipboard
+noremap <leader>y "*y
+noremap <leader>p "*p
+
 "Misc
 nnoremap <leader>s :source ~/.vimrc<CR>
 nnoremap <leader>v :tabe ~/.vimrc<CR>
 set dictionary=/usr/share/dict/words
 nnoremap L gt
 nnoremap H gT
-
+map <space> <leader>
 
 "Support <C-j> and <C-k> to swap adjacent lines
 function! SwapDown()
