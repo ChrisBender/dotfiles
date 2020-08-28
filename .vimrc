@@ -26,6 +26,7 @@ set cursorline
 set cursorcolumn
 set relativenumber
 set ruler
+set laststatus=2
 
 "Yank/Paste to System Clipboard
 noremap <leader>y "*y
