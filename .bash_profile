@@ -3,10 +3,10 @@ for file in ~/.{bash_prompt,bash_aliases}; do
 done;
 unset file;
 
-# Add `~/bin` to the `$PATH`
+# Add ~/bin, python3.7, and brew sbin to PATH.
 export PATH="$HOME/bin:$PATH"
-# Setting PATH for Python 3.7
-export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 
 ssh-add -A &> /dev/null
 
