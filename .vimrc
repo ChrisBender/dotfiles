@@ -1,10 +1,12 @@
 "Vundle
 set nocompatible
-filetype off
+filetype plugin on
+syntax on
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'zxqfl/tabnine-vim'
+Plugin 'rust-lang/rust.vim'
 call vundle#end()
 filetype plugin indent on
 
@@ -15,6 +17,9 @@ set expandtab
 set autoindent
 set softtabstop=4
 set backspace=indent,eol,start
+autocmd BufRead,BufNewFile *.ts setlocal tabstop=2
+autocmd BufRead,BufNewFile *.ts setlocal shiftwidth=2
+autocmd BufRead,BufNewFile *.ts setlocal softtabstop=2
 
 "Casing
 set ignorecase
@@ -39,6 +44,7 @@ set dictionary=/usr/share/dict/words
 nnoremap L gt
 nnoremap H gT
 map <space> <leader>
+set re=0
 
 "Support <C-j> and <C-k> to swap adjacent lines
 function! SwapDown()
@@ -67,9 +73,6 @@ nnoremap <silent> <C-j> :call SwapDown()<CR>
 nnoremap <silent> <C-k> :call SwapUp()<CR>
 
 "VimWiki
-set nocompatible
-filetype plugin on
-syntax on
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 call plug#end()

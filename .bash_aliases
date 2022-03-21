@@ -40,3 +40,40 @@ function cdls() {
 }
 alias cd='cdls'
 
+# Rotate Kalshi server
+function rotate_kalshi() {
+    # Terminate any previous instance
+    all_instances=$(
+        aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=Kalshi" "Name=instance-state-code,Values=16" \
+            | jq .Reservations
+    )
+    num_all_instances=$(echo $all_instances | jq ". | length")
+    if [ $num_all_instances -gt 1 ]; then
+        echo "Error: More than one instance was tagged 'Kalshi'."
+        return
+    elif [ $num_all_instances -eq 0 ]; then
+        echo "No 'Kalshi' instance was found."
+    else
+        instance_to_terminate=$(echo $all_instances | jq -r ".[0].Instances[0].InstanceId")
+        echo "Terminating Instance $instance_to_terminate"
+        aws ec2 terminate-instances --instance-ids $instance_to_terminate  > /dev/null
+    fi
+    run_instance=$(
+        aws ec2 run-instances \
+            --launch-template "LaunchTemplateName=KalshiArb" \
+            --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Kalshi}]"
+    )
+    run_instance_id=$(echo $run_instance | jq -r ".Instances[0].InstanceId")
+    echo "New Instance $run_instance_id"
+    sleep 3
+    run_instance_public_dns=$(
+        aws ec2 describe-instances \
+            --instance-ids $run_instance_id | \
+            jq -r .Reservations[0].Instances[0].PublicDnsName
+    )
+    echo "New Instance DNS:"
+    echo $run_instance_public_dns
+}
+alias kalshir='rotate_kalshi'
+
